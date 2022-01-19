@@ -1,0 +1,28 @@
+<div fxLayout="column">
+  <h1>VAT CALCULATOR (AUSTRIA)</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>VAT rate</mat-label>
+    <mat-select>
+      <mat-option>20% (standard)</mat-option>
+      <mat-option>13%</mat-option>
+      <mat-option>10%</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Price excluding VAT</mat-label>
+    <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+    <input matInput />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>VAT</mat-label>
+    <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+    <input matInput />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Price including VAT</mat-label>
+    <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+    <input matInput />
+  </mat-form-field>
+
+  <button mat-button color="warn" fxFlexAlign="center">CLEAR</button>
+</div>
