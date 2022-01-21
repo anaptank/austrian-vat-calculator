@@ -18,13 +18,27 @@
   <mat-form-field appearance="outline">
     <mat-label>Net Value (Price excluding VAT)</mat-label>
     <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-    <input matInput formControlName="net" #net (focus)="netValueSelection()" />
+    <input
+      matInput
+      formControlName="net"
+      #net
+      (focus)="netValueSelection()"
+      currencyMask
+      [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>VAT Value</mat-label>
     <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-    <input matInput formControlName="vat" #vat (focus)="vatValueSelection()" />
+    <input
+      matInput
+      formControlName="vat"
+      #vat
+      (focus)="vatValueSelection()"
+      currencyMask
+      [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -35,10 +49,11 @@
       matInput
       formControlName="gross"
       (focus)="grossValueSelection()"
+      currencyMask
+      [options]="{ prefix: '', thousands: '.', decimal: ',' }"
     />
   </mat-form-field>
-
-  <button mat-button color="warn" fxFlexAlign="center" (click)="clearButton()">
+  <button mat-raised-button fxFlexAlign="center" (click)="clearButton()">
     CLEAR
   </button>
 </form>

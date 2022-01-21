@@ -9,6 +9,7 @@ import { VatCalculatorComponent } from './components/vat-calculator/vat-calculat
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [AppComponent, VatCalculatorComponent],
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    CurrencyMaskModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
