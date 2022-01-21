@@ -50,24 +50,19 @@ export class VatCalculatorComponent implements OnInit {
     return this.purchaseDataForm.get(control)?.value;
   }
 
-  parseFormFieldValueToFloat(control: string) {
-    return parseFloat(this.purchaseDataForm.get(control)?.value);
-  }
-
   grossValueSelection() {
     this.renderer.listen(this.grossElRef.nativeElement, 'keyup', () => {
       if (this.getFormFieldValue('gross') != '') {
         this.purchaseDataForm
           .get('net')
           ?.setValue(
-            this.parseFormFieldValueToFloat('gross') /
-              (1 + this.parseFormFieldValueToFloat('rate'))
+            this.getFormFieldValue('gross') /
+              (1 + this.getFormFieldValue('rate'))
           );
         this.purchaseDataForm
           .get('vat')
           ?.setValue(
-            this.parseFormFieldValueToFloat('gross') -
-              this.parseFormFieldValueToFloat('net')
+            this.getFormFieldValue('gross') - this.getFormFieldValue('net')
           );
       } else {
         this.purchaseDataForm.get('net')?.setValue('');
@@ -79,13 +74,12 @@ export class VatCalculatorComponent implements OnInit {
   netValueSelection() {
     this.renderer.listen(this.netElRef.nativeElement, 'keyup', () => {
       let vatValue =
-        this.parseFormFieldValueToFloat('net') *
-        this.parseFormFieldValueToFloat('rate');
+        this.getFormFieldValue('net') * this.getFormFieldValue('rate');
       if (this.getFormFieldValue('net') != '') {
         this.purchaseDataForm.get('vat')?.setValue(vatValue);
         this.purchaseDataForm
           .get('gross')
-          ?.setValue(this.parseFormFieldValueToFloat('net') + vatValue);
+          ?.setValue(this.getFormFieldValue('net') + vatValue);
       } else {
         this.purchaseDataForm.get('vat')?.setValue('');
         this.purchaseDataForm.get('gross')?.setValue('');
@@ -99,14 +93,12 @@ export class VatCalculatorComponent implements OnInit {
         this.purchaseDataForm
           .get('net')
           ?.setValue(
-            this.parseFormFieldValueToFloat('vat') /
-              this.parseFormFieldValueToFloat('rate')
+            this.getFormFieldValue('vat') / this.getFormFieldValue('rate')
           );
         this.purchaseDataForm
           .get('gross')
           ?.setValue(
-            this.parseFormFieldValueToFloat('net') +
-              this.parseFormFieldValueToFloat('vat')
+            this.getFormFieldValue('net') + this.getFormFieldValue('vat')
           );
       } else {
         this.purchaseDataForm.get('net')?.setValue('');
@@ -119,6 +111,6 @@ export class VatCalculatorComponent implements OnInit {
     let keys = Object.keys(this.purchaseDataForm.value);
     keys
       .filter((key) => key != 'rate')
-      .forEach((res) => this.purchaseDataForm.get(res)?.setValue(undefined));
+      .forEach((res) => this.purchaseDataForm.get(res)?.reset());
   }
 }

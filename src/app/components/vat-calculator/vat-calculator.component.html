@@ -53,7 +53,12 @@
       [options]="{ prefix: '', thousands: '.', decimal: ',' }"
     />
   </mat-form-field>
-  <button mat-raised-button fxFlexAlign="center" (click)="clearButton()">
+  <button
+    mat-raised-button
+    fxFlexAlign="center"
+    (click)="clearButton()"
+    color="primary"
+  >
     CLEAR
   </button>
 </form>
