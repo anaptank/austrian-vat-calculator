@@ -8,6 +8,7 @@ import { MaterialModule } from './material/material/material.module';
 import { VatCalculatorComponent } from './components/vat-calculator/vat-calculator.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, VatCalculatorComponent],
@@ -18,6 +19,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MaterialModule,
     MatIconModule,
     FlexLayoutModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

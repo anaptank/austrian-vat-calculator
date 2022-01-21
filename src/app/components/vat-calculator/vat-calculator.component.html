@@ -1,28 +1,44 @@
-<div class="content" fxLayout="column">
+<form
+  autocomplete="off"
+  class="content"
+  fxLayout="column"
+  [formGroup]="purchaseDataForm"
+>
   <h1>VAT CALCULATOR (AUSTRIA)</h1>
+
   <mat-form-field appearance="outline">
     <mat-label>VAT rate</mat-label>
-    <mat-select>
-      <mat-option>20% (standard)</mat-option>
-      <mat-option>13%</mat-option>
-      <mat-option>10%</mat-option>
+    <mat-select formControlName="rate" #rate>
+      <mat-option *ngFor="let option of rates" [value]="option.value">{{
+        option.viewValue
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
+
   <mat-form-field appearance="outline">
-    <mat-label>Price excluding VAT</mat-label>
+    <mat-label>Net Value (Price excluding VAT)</mat-label>
     <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-    <input matInput />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>VAT</mat-label>
-    <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-    <input matInput />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Price including VAT</mat-label>
-    <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-    <input matInput />
+    <input matInput formControlName="net" #net (focus)="netValueSelection()" />
   </mat-form-field>
 
-  <button mat-button color="warn" fxFlexAlign="center">CLEAR</button>
-</div>
+  <mat-form-field appearance="outline">
+    <mat-label>VAT Value</mat-label>
+    <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+    <input matInput formControlName="vat" #vat (focus)="vatValueSelection()" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Gross Value (Price including VAT)</mat-label>
+    <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+    <input
+      #gross
+      matInput
+      formControlName="gross"
+      (focus)="grossValueSelection()"
+    />
+  </mat-form-field>
+
+  <button mat-button color="warn" fxFlexAlign="center" (click)="clearButton()">
+    CLEAR
+  </button>
+</form>
