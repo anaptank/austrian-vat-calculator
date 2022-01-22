@@ -43,9 +43,9 @@ export class VatCalculatorComponent implements OnInit {
   initializeForm(): void {
     this.purchaseDataForm = this.fb.group({
       rate: this.rates[0].value,
-      gross: undefined, // Put validators
-      vat: undefined, // Put validators
-      net: undefined, // Put validators
+      gross: [undefined, Validators.pattern('^[1-9]+[0-9]*$')],
+      vat: [undefined, Validators.pattern('^[1-9]+[0-9]*$')],
+      net: [undefined, Validators.pattern('^[1-9]+[0-9]*$')],
     });
   }
 
@@ -57,7 +57,7 @@ export class VatCalculatorComponent implements OnInit {
 
   grossValueSelection() {
     this.renderer.listen(this.grossElRef.nativeElement, 'keyup', () => {
-      if (this.getFormFieldValue('gross') == '') {
+      if (!this.getFormFieldValue('gross')) {
         this.purchaseDataForm.get('net')?.reset();
         this.purchaseDataForm.get('vat')?.reset();
         return;
@@ -73,7 +73,7 @@ export class VatCalculatorComponent implements OnInit {
 
   netValueSelection() {
     this.renderer.listen(this.netElRef.nativeElement, 'keyup', () => {
-      if (this.getFormFieldValue('net') == '') {
+      if (!this.getFormFieldValue('net')) {
         this.purchaseDataForm.get('vat')?.reset();
         this.purchaseDataForm.get('gross')?.reset();
         return;
@@ -92,7 +92,7 @@ export class VatCalculatorComponent implements OnInit {
 
   vatValueSelection() {
     this.renderer.listen(this.vatElRef.nativeElement, 'keyup', () => {
-      if (this.getFormFieldValue('vat') == '') {
+      if (!this.getFormFieldValue('vat')) {
         this.purchaseDataForm.get('net')?.reset('');
         this.purchaseDataForm.get('gross')?.reset('');
       }
