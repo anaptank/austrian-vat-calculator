@@ -8,7 +8,11 @@
 
   <mat-form-field appearance="outline">
     <mat-label>VAT rate</mat-label>
-    <mat-select formControlName="rate" #rate>
+    <mat-select
+      formControlName="rate"
+      #rateSelection
+      (selectionChange)="rateValueSelection()"
+    >
       <mat-option *ngFor="let option of rates" [value]="option.value">{{
         option.viewValue
       }}</mat-option>
@@ -21,11 +25,12 @@
     <input
       matInput
       formControlName="net"
-      #net
+      #netInput
       (focus)="netValueSelection()"
       currencyMask
       [options]="{ prefix: '', thousands: '.', decimal: ',' }"
     />
+    <mat-error *ngIf="net?.errors?.['min']">Minimum value is 0.01</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -34,30 +39,32 @@
     <input
       matInput
       formControlName="vat"
-      #vat
+      #vatInput
       (focus)="vatValueSelection()"
       currencyMask
       [options]="{ prefix: '', thousands: '.', decimal: ',' }"
     />
+    <mat-error *ngIf="vat?.errors?.['min']">Minimum value is 0.01</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Gross Value (Price including VAT)</mat-label>
     <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
     <input
-      #gross
+      #grossInput
       matInput
       formControlName="gross"
       (focus)="grossValueSelection()"
       currencyMask
       [options]="{ prefix: '', thousands: '.', decimal: ',' }"
     />
+    <mat-error *ngIf="gross?.errors?.['min']">Minimum value is 0.01</mat-error>
   </mat-form-field>
 
   <button
     mat-raised-button
     fxFlexAlign="center"
-    (click)="clearButton()"
+    (click)="resetFormData()"
     color="primary"
   >
     CLEAR
