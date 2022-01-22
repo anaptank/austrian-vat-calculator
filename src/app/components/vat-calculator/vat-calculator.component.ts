@@ -6,6 +6,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { VatCalculator } from 'src/app/vat-calculator/vat-calculator';
+import { VatCalculatorAustria } from 'src/app/vat-calculator/vat-calculator-austria';
 
 interface VatRate {
   value: number;
@@ -23,6 +25,8 @@ export class VatCalculatorComponent implements OnInit {
   @ViewChild('vat') vatElRef: ElementRef;
   @ViewChild('net') netElRef: ElementRef;
 
+  private vatCalculator: VatCalculator;
+
   public rates: VatRate[] = [
     { value: 0.2, viewValue: '20% (standard)' },
     { value: 0.13, viewValue: '13% (reduced)' },
@@ -33,6 +37,7 @@ export class VatCalculatorComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private renderer: Renderer2) {
     this.initializeForm();
+    this.vatCalculator = new VatCalculatorAustria();
   }
 
   initializeForm(): void {
@@ -52,58 +57,55 @@ export class VatCalculatorComponent implements OnInit {
 
   grossValueSelection() {
     this.renderer.listen(this.grossElRef.nativeElement, 'keyup', () => {
-      if (this.getFormFieldValue('gross') != '') {
-        this.purchaseDataForm
-          .get('net')
-          ?.setValue(
-            this.getFormFieldValue('gross') /
-              (1 + this.getFormFieldValue('rate'))
-          );
-        this.purchaseDataForm
-          .get('vat')
-          ?.setValue(
-            this.getFormFieldValue('gross') - this.getFormFieldValue('net')
-          );
-      } else {
-        this.purchaseDataForm.get('net')?.setValue('');
-        this.purchaseDataForm.get('vat')?.setValue('');
+      if (this.getFormFieldValue('gross') == '') {
+        this.purchaseDataForm.get('net')?.reset();
+        this.purchaseDataForm.get('vat')?.reset();
+        return;
       }
+      const calculationResult = this.vatCalculator.CalculateFromGrossValue(
+        this.getFormFieldValue('rate'),
+        this.getFormFieldValue('gross')
+      );
+      this.purchaseDataForm.get('net')?.setValue(calculationResult.getNetValue);
+      this.purchaseDataForm.get('vat')?.setValue(calculationResult.getVatValue);
     });
   }
 
   netValueSelection() {
     this.renderer.listen(this.netElRef.nativeElement, 'keyup', () => {
-      let vatValue =
-        this.getFormFieldValue('net') * this.getFormFieldValue('rate');
-      if (this.getFormFieldValue('net') != '') {
-        this.purchaseDataForm.get('vat')?.setValue(vatValue);
-        this.purchaseDataForm
-          .get('gross')
-          ?.setValue(this.getFormFieldValue('net') + vatValue);
-      } else {
-        this.purchaseDataForm.get('vat')?.setValue('');
-        this.purchaseDataForm.get('gross')?.setValue('');
+      if (this.getFormFieldValue('net') == '') {
+        this.purchaseDataForm.get('vat')?.reset();
+        this.purchaseDataForm.get('gross')?.reset();
+        return;
       }
+      const calculationResult = this.vatCalculator.CalculateFromNetValue(
+        this.getFormFieldValue('rate'),
+        this.getFormFieldValue('net')
+      );
+
+      this.purchaseDataForm.get('vat')?.setValue(calculationResult.getVatValue);
+      this.purchaseDataForm
+        .get('gross')
+        ?.setValue(calculationResult.getGrossValue);
     });
   }
 
   vatValueSelection() {
     this.renderer.listen(this.vatElRef.nativeElement, 'keyup', () => {
-      if (this.getFormFieldValue('vat') != '') {
-        this.purchaseDataForm
-          .get('net')
-          ?.setValue(
-            this.getFormFieldValue('vat') / this.getFormFieldValue('rate')
-          );
-        this.purchaseDataForm
-          .get('gross')
-          ?.setValue(
-            this.getFormFieldValue('net') + this.getFormFieldValue('vat')
-          );
-      } else {
-        this.purchaseDataForm.get('net')?.setValue('');
-        this.purchaseDataForm.get('gross')?.setValue('');
+      if (this.getFormFieldValue('vat') == '') {
+        this.purchaseDataForm.get('net')?.reset('');
+        this.purchaseDataForm.get('gross')?.reset('');
       }
+
+      const calculationResult = this.vatCalculator.CalculateFromVatValue(
+        this.getFormFieldValue('rate'),
+        this.getFormFieldValue('vat')
+      );
+
+      this.purchaseDataForm.get('net')?.setValue(calculationResult.getNetValue);
+      this.purchaseDataForm
+        .get('gross')
+        ?.setValue(calculationResult.getGrossValue);
     });
   }
 
