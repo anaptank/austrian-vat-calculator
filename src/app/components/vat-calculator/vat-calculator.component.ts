@@ -30,9 +30,9 @@ export class VatCalculatorComponent implements OnInit {
   private vatCalculator: VatCalculator;
 
   public rates: VatRate[] = [
-    { value: 0.2, viewValue: '20% (standard)' },
-    { value: 0.13, viewValue: '13% (reduced)' },
-    { value: 0.1, viewValue: '10% (reduced)' },
+    { value: 0.2, viewValue: '20%' },
+    { value: 0.13, viewValue: '13%' },
+    { value: 0.1, viewValue: '10%' },
   ];
 
   public purchaseDataForm: FormGroup;
@@ -49,9 +49,9 @@ export class VatCalculatorComponent implements OnInit {
   initializeForm(): void {
     this.purchaseDataForm = this.fb.group({
       rate: this.rates[0].value,
-      gross: [undefined, [Validators.min(0.01)]],
-      vat: [undefined, Validators.min(0.01)],
-      net: [undefined, Validators.min(0.01)],
+      gross: [undefined, [Validators.min(0.01), Validators.max(1000000000000)]],
+      vat: [undefined, [Validators.min(0.01), Validators.max(1000000000000)]],
+      net: [undefined, [Validators.min(0.01), Validators.max(1000000000000)]],
     });
   }
 
