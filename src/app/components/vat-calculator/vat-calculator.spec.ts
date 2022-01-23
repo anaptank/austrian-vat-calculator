@@ -87,4 +87,18 @@ describe('VatCalculatorComponent', () => {
     expect(component.vat).toBe(component.purchaseDataForm.get('vat'));
     expect(component.net).toBe(component.purchaseDataForm.get('net'));
   });
+
+  it('when the value of one of the inputs is set to null the other inputs must also be null', () => {
+    component.purchaseDataForm.get('vat')?.setValue(null);
+    expect(component.net?.value).toBe(null);
+    expect(component.gross?.value).toBe(null);
+
+    component.purchaseDataForm.get('net')?.setValue(null);
+    expect(component.vat?.value).toBe(null);
+    expect(component.gross?.value).toBe(null);
+
+    component.purchaseDataForm.get('gross')?.setValue(null);
+    expect(component.net?.value).toBe(null);
+    expect(component.vat?.value).toBe(null);
+  });
 });
