@@ -1,81 +1,83 @@
-<form
-  autocomplete="off"
-  class="content"
-  fxLayout="column"
-  [formGroup]="purchaseDataForm"
->
-  <h1>VAT CALCULATOR (AUSTRIA)</h1>
-
-  <div fxLayout="column" id="div-radio-group">
-    <label id="radio-group-label">1º) Select the VAT rate:</label>
-    <mat-radio-group aria-labelledby="radio-group-label" formControlName="rate">
-      <mat-radio-button
-        *ngFor="let rate of rates"
-        [value]="rate.value"
-        #rateSelection
-        (change)="rateValueSelection()"
-      >
-        {{ rate.viewValue }}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-
-  <div fxLayout="column" id="div-inputs">
-    <p>2º) Fill in ONE of the fields below:</p>
-    <mat-form-field appearance="outline">
-      <mat-label>Net Value (Price excluding VAT)</mat-label>
-      <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-      <input
-        matInput
-        formControlName="net"
-        #netInput
-        (focus)="netValueSelection()"
-        currencyMask
-        [options]="{ prefix: '', thousands: '.', decimal: ',' }"
-      />
-      <mat-error *ngIf="net?.errors?.['min']">Minimum value is 0.01</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>VAT Value</mat-label>
-      <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-      <input
-        matInput
-        formControlName="vat"
-        #vatInput
-        (focus)="vatValueSelection()"
-        currencyMask
-        [options]="{ prefix: '', thousands: '.', decimal: ',' }"
-      />
-      <mat-error *ngIf="vat?.errors?.['min']">Minimum value is 0.01</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Gross Value (Price including VAT)</mat-label>
-      <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
-      <input
-        #grossInput
-        matInput
-        formControlName="gross"
-        (focus)="grossValueSelection()"
-        currencyMask
-        [options]="{ prefix: '', thousands: '.', decimal: ',' }"
-      />
-      <mat-error *ngIf="gross?.errors?.['min']"
-        >Minimum value is 0.01</mat-error
-      >
-      <mat-error *ngIf="gross?.errors?.['max']"
-        >Maximum value is 1.000.000.000.000,00</mat-error
-      >
-    </mat-form-field>
-  </div>
-
-  <button
-    mat-raised-button
-    fxFlexAlign="center"
-    (click)="resetFormData()"
-    color="accent"
+<mat-card>
+  <form
+    autocomplete="off"
+    class="content"
+    fxLayout="column"
+    [formGroup]="purchaseDataForm"
   >
-    CLEAR
-  </button>
-</form>
+    <mat-card-title>VAT CALCULATOR (AUSTRIA)</mat-card-title>
+
+    <mat-card-content>
+      <div fxLayout="column" id="div-radio-group">
+        <p>1º) Select the VAT rate:</p>
+        <mat-radio-group
+          aria-labelledby="radio-group-label"
+          formControlName="rate"
+        >
+          <mat-radio-button
+            *ngFor="let rate of rates"
+            [value]="rate.value"
+            #rateSelection
+            (change)="rateValueSelection()"
+          >
+            {{ rate.viewValue }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div fxLayout="column" id="div-inputs">
+        <p>2º) Fill in ONE of the fields below:</p>
+        <mat-form-field appearance="outline">
+          <mat-label>Net Value (Price excluding VAT)</mat-label>
+          <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+          <input
+            matInput
+            formControlName="net"
+            #netInput
+            (focus)="netValueSelection()"
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+          />
+          <mat-error *ngIf="net?.errors?.['min']"
+            >Minimum value is 0.01</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>VAT Value</mat-label>
+          <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+          <input
+            matInput
+            formControlName="vat"
+            #vatInput
+            (focus)="vatValueSelection()"
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+          />
+          <mat-error *ngIf="vat?.errors?.['min']"
+            >Minimum value is 0.01</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Gross Value (Price including VAT)</mat-label>
+          <mat-icon aria-hidden="false" matPrefix>euro_symbol</mat-icon>
+          <input
+            #grossInput
+            matInput
+            formControlName="gross"
+            (focus)="grossValueSelection()"
+            currencyMask
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+          />
+          <mat-error *ngIf="gross?.errors?.['min']"
+            >Minimum value is 0.01</mat-error
+          >
+          <mat-error *ngIf="gross?.errors?.['max']"
+            >Maximum value is 1.000.000.000.000,00</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>

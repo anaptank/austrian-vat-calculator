@@ -1,14 +1,23 @@
-h1 {
-  margin-bottom: 30px;
+mat-card-title {
+  margin-bottom: 50px;
 }
 
 mat-icon {
   margin-right: 8px;
 }
 
-p,
-mat-label,
-#radio-group-label {
+mat-card-title,
+mat-icon,
+p {
+  color: #2e2e2e;
+}
+
+p {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+mat-label {
   font-size: 15px;
 }
 
@@ -16,11 +25,6 @@ mat-radio-button {
   margin-right: 15px;
 }
 
-#div-radio-group,
-#div-inputs {
-  margin-bottom: 30px;
-}
-
-#radio-group-label {
-  padding-bottom: 1.34375em;
+#div-radio-group {
+  margin-bottom: 40px;
 }
