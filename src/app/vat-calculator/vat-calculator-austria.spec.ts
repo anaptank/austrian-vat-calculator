@@ -2,12 +2,13 @@ import { VatCalculatorAustria } from './vat-calculator-austria';
 
 describe('VatCalculatorAustria', () => {
   let calculator: VatCalculatorAustria = new VatCalculatorAustria();
-  let rateValue: number = 0.2;
-  let grossValue: number = 120;
-  let vatValue: number = 20;
-  let netValue: number = 100;
 
   it('check GROSS and NET values when the VAT value was inserted', () => {
+    const rateValue: number = 0.2;
+    const grossValue: number = 133.02;
+    const vatValue: number = 22.17;
+    const netValue: number = 110.85;
+
     const calculationResult = calculator.CalculateFromVatValue(
       rateValue,
       vatValue
@@ -17,6 +18,11 @@ describe('VatCalculatorAustria', () => {
   });
 
   it('check GROSS and VAT values when the NET value was inserted', () => {
+    const rateValue: number = 0.2;
+    const grossValue: number = 133;
+    const vatValue: number = 22.17;
+    const netValue: number = 110.83;
+
     const calculationResult = calculator.CalculateFromNetValue(
       rateValue,
       netValue
@@ -26,6 +32,11 @@ describe('VatCalculatorAustria', () => {
   });
 
   it('check VAT and NET values when the GROSS value was inserted', () => {
+    const rateValue: number = 0.2;
+    const grossValue: number = 133;
+    const vatValue: number = 22.17;
+    const netValue: number = 110.83;
+
     const calculationResult = calculator.CalculateFromGrossValue(
       rateValue,
       grossValue

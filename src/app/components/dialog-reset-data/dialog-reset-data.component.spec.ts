@@ -8,9 +8,8 @@ describe('DialogResetDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogResetDataComponent ]
-    })
-    .compileComponents();
+      declarations: [DialogResetDataComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('DialogResetDataComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create DialogResetDataComponent', () => {
     expect(component).toBeTruthy();
   });
 });
