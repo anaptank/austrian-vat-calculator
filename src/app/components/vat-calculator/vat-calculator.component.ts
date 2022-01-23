@@ -49,17 +49,13 @@ export class VatCalculatorComponent implements OnInit {
   initializeForm(): void {
     this.purchaseDataForm = this.fb.group({
       rate: this.rates[0].value,
-      gross: [undefined, [Validators.min(0.01), Validators.max(1000000000000)]],
-      vat: [undefined, [Validators.min(0.01), Validators.max(1000000000000)]],
-      net: [undefined, [Validators.min(0.01), Validators.max(1000000000000)]],
+      gross: [null, [Validators.min(0.01), Validators.max(1000000000000)]],
+      vat: [null, [Validators.min(0.01), Validators.max(1000000000000)]],
+      net: [null, [Validators.min(0.01), Validators.max(1000000000000)]],
     });
   }
 
   ngOnInit() {}
-
-  getFormFieldValue(control: string) {
-    return this.purchaseDataForm.get(control)?.value;
-  }
 
   rateValueSelection() {
     const dialogRef = this.dialog.open(DialogResetDataComponent);
@@ -73,14 +69,14 @@ export class VatCalculatorComponent implements OnInit {
 
   grossValueSelection() {
     this.renderer.listen(this.grossElRef.nativeElement, 'keyup', () => {
-      if (!this.getFormFieldValue('gross')) {
+      if (!this.gross?.value) {
         this.purchaseDataForm.get('net')?.reset();
         this.purchaseDataForm.get('vat')?.reset();
         return;
       }
       const calculationResult = this.vatCalculator.CalculateFromGrossValue(
-        this.getFormFieldValue('rate'),
-        this.getFormFieldValue('gross')
+        this.rate?.value,
+        this.gross?.value
       );
       this.purchaseDataForm.get('net')?.setValue(calculationResult.getNetValue);
       this.purchaseDataForm.get('vat')?.setValue(calculationResult.getVatValue);
@@ -89,14 +85,14 @@ export class VatCalculatorComponent implements OnInit {
 
   netValueSelection() {
     this.renderer.listen(this.netElRef.nativeElement, 'keyup', () => {
-      if (!this.getFormFieldValue('net')) {
+      if (!this.net?.value) {
         this.purchaseDataForm.get('vat')?.reset();
         this.purchaseDataForm.get('gross')?.reset();
         return;
       }
       const calculationResult = this.vatCalculator.CalculateFromNetValue(
-        this.getFormFieldValue('rate'),
-        this.getFormFieldValue('net')
+        this.rate?.value,
+        this.net?.value
       );
 
       this.purchaseDataForm.get('vat')?.setValue(calculationResult.getVatValue);
@@ -108,14 +104,14 @@ export class VatCalculatorComponent implements OnInit {
 
   vatValueSelection() {
     this.renderer.listen(this.vatElRef.nativeElement, 'keyup', () => {
-      if (!this.getFormFieldValue('vat')) {
+      if (!this.vat?.value) {
         this.purchaseDataForm.get('net')?.reset('');
         this.purchaseDataForm.get('gross')?.reset('');
       }
 
       const calculationResult = this.vatCalculator.CalculateFromVatValue(
-        this.getFormFieldValue('rate'),
-        this.getFormFieldValue('vat')
+        this.rate?.value,
+        this.vat?.value
       );
 
       this.purchaseDataForm.get('net')?.setValue(calculationResult.getNetValue);
@@ -130,6 +126,10 @@ export class VatCalculatorComponent implements OnInit {
     keys
       .filter((key) => key != 'rate')
       .forEach((res) => this.purchaseDataForm.get(res)?.reset());
+  }
+
+  get rate() {
+    return this.purchaseDataForm.get('rate');
   }
 
   get gross() {
