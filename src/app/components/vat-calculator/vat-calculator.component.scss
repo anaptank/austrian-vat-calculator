@@ -6,6 +6,10 @@ mat-icon {
   margin-right: 8px;
 }
 
+mat-card {
+  min-width: 300px;
+}
+
 mat-card-title,
 mat-icon,
 p {
@@ -27,4 +31,9 @@ mat-radio-button {
 
 #div-radio-group {
   margin-bottom: 40px;
+  padding-top: 1.34375em;
+}
+
+mat-card-content {
+  margin-bottom: 0px;
 }
