@@ -1,15 +1,26 @@
 h1 {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 mat-icon {
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
-.info-icon {
-  font-size: 20px;
-}
-
-mat-label {
+p,
+mat-label,
+#radio-group-label {
   font-size: 15px;
+}
+
+mat-radio-button {
+  margin-right: 15px;
+}
+
+#div-radio-group,
+#div-inputs {
+  margin-bottom: 30px;
+}
+
+#radio-group-label {
+  padding-bottom: 1.34375em;
 }
