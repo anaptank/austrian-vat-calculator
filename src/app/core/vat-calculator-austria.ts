@@ -1,4 +1,7 @@
-import { CalculationResult, VatCalculator } from './vat-calculator';
+import {
+  CalculationResult,
+  VatCalculator,
+} from '../shared/models/vat-calculator.model';
 import { round } from 'mathjs';
 
 export class VatCalculatorAustria implements VatCalculator {
