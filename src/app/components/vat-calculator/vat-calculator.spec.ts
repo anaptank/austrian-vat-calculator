@@ -40,45 +40,39 @@ describe('VatCalculatorComponent', () => {
   });
 
   it('should has net value input min validator', () => {
-    const netFormControl = component.purchaseDataForm.get('net');
-    netFormControl?.setValue('0');
+    component.net?.setValue('0');
 
-    expect(netFormControl?.hasError('min')).toBeTruthy();
+    expect(component.net?.hasError('min')).toBeTruthy();
   });
 
   it('should has net value input max validator', () => {
-    const netFormControl = component.purchaseDataForm.get('net');
-    netFormControl?.setValue('10000000000000');
+    component.net?.setValue('10000000000000');
 
-    expect(netFormControl?.hasError('max')).toBeTruthy();
+    expect(component.net?.hasError('max')).toBeTruthy();
   });
 
   it('should has vat value input min validator', () => {
-    const vatFormControl = component.purchaseDataForm.get('vat');
-    vatFormControl?.setValue('0');
+    component.vat?.setValue('0');
 
-    expect(vatFormControl?.hasError('min')).toBeTruthy();
+    expect(component.vat?.hasError('min')).toBeTruthy();
   });
 
   it('should has vat value input max validator', () => {
-    const vatFormControl = component.purchaseDataForm.get('vat');
-    vatFormControl?.setValue('10000000000000');
+    component.vat?.setValue('10000000000000');
 
-    expect(vatFormControl?.hasError('max')).toBeTruthy();
+    expect(component.vat?.hasError('max')).toBeTruthy();
   });
 
   it('should has gross value input min validator', () => {
-    const grossFormControl = component.purchaseDataForm.get('gross');
-    grossFormControl?.setValue('0');
+    component.gross?.setValue('0');
 
-    expect(grossFormControl?.hasError('min')).toBeTruthy();
+    expect(component.gross?.hasError('min')).toBeTruthy();
   });
 
   it('should has gross value input max validator', () => {
-    const grossFormControl = component.purchaseDataForm.get('gross');
-    grossFormControl?.setValue('10000000000000');
+    component.gross?.setValue('10000000000000');
 
-    expect(grossFormControl?.hasError('max')).toBeTruthy();
+    expect(component.gross?.hasError('max')).toBeTruthy();
   });
 
   it('check if get() functions are working', () => {
@@ -89,16 +83,26 @@ describe('VatCalculatorComponent', () => {
   });
 
   it('when the value of one of the inputs is set to null the other inputs must also be null', () => {
-    component.purchaseDataForm.get('vat')?.setValue(null);
+    component.vat?.setValue(null);
     expect(component.net?.value).toBe(null);
     expect(component.gross?.value).toBe(null);
 
-    component.purchaseDataForm.get('net')?.setValue(null);
+    component.net?.setValue(null);
     expect(component.vat?.value).toBe(null);
     expect(component.gross?.value).toBe(null);
 
-    component.purchaseDataForm.get('gross')?.setValue(null);
+    component.gross?.setValue(null);
     expect(component.net?.value).toBe(null);
     expect(component.vat?.value).toBe(null);
+  });
+
+  it('when the rate value changes the inputs must be null', () => {
+    component.net?.setValue(100);
+    component.vat?.setValue(20);
+    component.gross?.setValue(120);
+    component.rateValueSelection();
+    expect(component.net?.value).toEqual(null);
+    expect(component.vat?.value).toEqual(null);
+    expect(component.gross?.value).toEqual(null);
   });
 });
