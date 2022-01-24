@@ -8,8 +8,6 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VatCalculator } from 'src/app/shared/models/vat-calculator.model';
 import { VatCalculatorAustria } from 'src/app/core/vat-calculator-austria';
-import { DialogResetDataComponent } from '../dialog-reset-data/dialog-reset-data.component';
-import { MatDialog } from '@angular/material/dialog';
 
 interface VatRate {
   value: number;
@@ -37,11 +35,7 @@ export class VatCalculatorComponent implements OnInit {
 
   public purchaseDataForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private renderer: Renderer2,
-    public dialog: MatDialog
-  ) {
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {
     this.initializeForm();
     this.vatCalculator = new VatCalculatorAustria();
   }
@@ -58,13 +52,7 @@ export class VatCalculatorComponent implements OnInit {
   ngOnInit() {}
 
   rateValueSelection() {
-    const dialogRef = this.dialog.open(DialogResetDataComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.resetFormData();
-      }
-    });
+    this.resetFormData();
   }
 
   grossValueSelection() {
