@@ -1,0 +1,10 @@
+version: "2.1"
+
+services:
+  app:
+    image: anatank/vat-calculator:latest
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 80:80
