@@ -18,6 +18,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     docker run -p 80:80 -d --name vat-calculator anatank/vat-calculator:latest
 ```
 
+to access the app:
+
 ```shell
     http://localhost
 ```
