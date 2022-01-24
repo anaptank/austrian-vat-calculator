@@ -4,7 +4,7 @@ import { VatCalculatorComponent } from './components/vat-calculator/vat-calculat
 
 export const routes: Routes = [
   { path: 'vat-calculator', component: VatCalculatorComponent },
-  { path: '', redirectTo: '/vat-calculator', pathMatch: 'full' },
+  { path: '**', redirectTo: '/vat-calculator' },
 ];
 
 @NgModule({

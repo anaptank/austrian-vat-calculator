@@ -20,10 +20,10 @@ interface VatRate {
   styleUrls: ['./vat-calculator.component.scss'],
 })
 export class VatCalculatorComponent implements OnInit {
-  @ViewChild('rateSelection') rateElRef: ElementRef;
-  @ViewChild('grossInput') grossElRef: ElementRef;
-  @ViewChild('vatInput') vatElRef: ElementRef;
-  @ViewChild('netInput') netElRef: ElementRef;
+  @ViewChild('rateSelectionRef') rateElRef: ElementRef;
+  @ViewChild('grossInputRef') grossElRef: ElementRef;
+  @ViewChild('vatInputRef') vatElRef: ElementRef;
+  @ViewChild('netInputRef') netElRef: ElementRef;
 
   private vatCalculator: VatCalculator;
 
