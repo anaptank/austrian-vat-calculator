@@ -11,6 +11,14 @@ context('Elements', () => {
     cy.get('mat-toolbar span').should('be.visible');
   });
 
+  it('should appear three mat-radio-button ', () => {
+    cy.get('.mat-radio-button').should('have.length', 3);
+  });
+
+  it('should appear three inputs', () => {
+    cy.get('mat-form-field input').should('have.length', 3);
+  });
+
   it('mat-card should be shown', () => {
     cy.get('mat-card').should('be.visible');
   });
