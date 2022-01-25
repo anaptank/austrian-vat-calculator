@@ -4,7 +4,7 @@ Austrian VAT Calculator is an app to calculate regular (20%) or reduced (13% or 
 
 # Decisions
 
-As I chose to use the `ng2-currency-mask` library (https://github.com/cesarrew/ng2-currency-mask) in this project, this library does not accept non-numeric values as input. So I didn't do a specific validation if a non-numeric value was entered.
+As I chose to use the [ng2-currency-mask](https://github.com/cesarrew/ng2-currency-mask) library  in this project, this library does not accept non-numeric values as input. So I didn't do a specific validation if a non-numeric value was entered.
 
 # Angular Version
 
