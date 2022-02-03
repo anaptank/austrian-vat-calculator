@@ -56,7 +56,7 @@ export class VatCalculatorComponent implements OnInit {
   }
 
   grossValueSelection() {
-    this.renderer.listen(this.grossElRef.nativeElement, 'keyup', () => {
+    this.purchaseDataForm.get('gross')?.valueChanges.subscribe(() => {
       if (!this.gross?.value) {
         this.purchaseDataForm.get('net')?.reset();
         this.purchaseDataForm.get('vat')?.reset();
@@ -72,7 +72,7 @@ export class VatCalculatorComponent implements OnInit {
   }
 
   netValueSelection() {
-    this.renderer.listen(this.netElRef.nativeElement, 'keyup', () => {
+    this.purchaseDataForm.get('net')?.valueChanges.subscribe(() => {
       if (!this.net?.value) {
         this.purchaseDataForm.get('vat')?.reset();
         this.purchaseDataForm.get('gross')?.reset();
@@ -91,7 +91,7 @@ export class VatCalculatorComponent implements OnInit {
   }
 
   vatValueSelection() {
-    this.renderer.listen(this.vatElRef.nativeElement, 'keyup', () => {
+    this.purchaseDataForm.get('vat')?.valueChanges.subscribe(() => {
       if (!this.vat?.value) {
         this.purchaseDataForm.get('net')?.reset('');
         this.purchaseDataForm.get('gross')?.reset('');
